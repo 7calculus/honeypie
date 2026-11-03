@@ -244,7 +244,7 @@ def build_figure(r, algo, layout=netviz.LAYOUTS[0], speed=450, height=580):
         xaxis=dict(visible=False, range=[min(xs) - padx, max(xs) + padx]),
         yaxis=dict(visible=False, range=[min(ys) - pady, max(ys) + pady]),
         updatemenus=[dict(type="buttons", direction="left", x=0.0, y=-0.1, xanchor="left", yanchor="top",
-                          bgcolor="#1e293b", bordercolor=acol, font=dict(color="#e2e8f0"),
+                          bgcolor="#1e293b", bordercolor=acol, font=dict(color="#f0e2e2"),
                           buttons=[dict(label="▶ Play / Replay", method="animate", args=[None, anim]),
                                    dict(label="❚❚ Pause", method="animate",
                                         args=[[None], dict(frame=dict(duration=0, redraw=False),
@@ -265,6 +265,13 @@ def render(r, algo, layout, speed=450, autoplay=True):
     html = fig.to_html(full_html=True, include_plotlyjs=True, auto_play=autoplay,
                        animation_opts=anim, default_height="580px", default_width="100%",
                        config={"displaylogo": False, "displayModeBar": False})
+    css = """
+    html,body{background:transparent;margin:0;overflow:hidden}
+    .updatemenu-item-rect{stroke:#22d3ee !important;stroke-width:1.5px}
+    .updatemenu-item-rect[style*="244, 250, 255"],
+    .updatemenu-item-rect[style*="F4FAFF" i]{fill:#ef4444 !important}
+    .updatemenu-item-text{fill:#ffffff !important}
+    """
     html = html.replace("<head>", "<head><style>html,body{background:transparent;margin:0;overflow:hidden}</style>", 1)
     components.html(html, height=600)
     return n
