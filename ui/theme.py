@@ -110,6 +110,25 @@ button[kind="primary"], button[data-testid="stBaseButton-primary"], button[data-
 .stTabs [aria-selected="true"] { text-shadow: 0 0 10px var(--accent); }
 div[data-testid="stExpander"] { border:1px solid rgba(167,139,250,.35); border-radius:12px;
   box-shadow: 0 0 16px -8px #a78bfa; }
+/* ---------- sidebar nav: whole-row block buttons instead of radio dots ---------- */
+section[data-testid="stSidebar"] [data-testid="stElementContainer"]:has([data-testid="stRadio"]),
+section[data-testid="stSidebar"] [data-testid="stRadio"] { width: 100% !important; }
+section[data-testid="stSidebar"] [role="radiogroup"] { gap: .1rem; width: 100%; }
+section[data-testid="stSidebar"] [role="radiogroup"] > div { width: 100%; }
+section[data-testid="stSidebar"] label[data-testid="stRadioOption"],
+section[data-testid="stSidebar"] [role="radiogroup"] > label {
+  display: flex !important; width: 100% !important; box-sizing: border-box; padding: .38rem .8rem; margin: 0; border-radius: 8px; cursor: pointer;
+  border: 1px solid transparent; background: transparent; transition: background .15s, border-color .15s; }
+/* hide the round radio indicator (new + older Streamlit markup) */
+section[data-testid="stSidebar"] label[data-testid="stRadioOption"] > div > div:first-child,
+section[data-testid="stSidebar"] [role="radiogroup"] > label > div:first-child { display: none !important; }
+section[data-testid="stSidebar"] label[data-testid="stRadioOption"] p { color:#a9bbd6; font-size:.92rem; }
+section[data-testid="stSidebar"] label[data-testid="stRadioOption"]:hover,
+section[data-testid="stSidebar"] [role="radiogroup"] > label:hover { background: rgba(148,163,184,.10); }
+section[data-testid="stSidebar"] label[data-testid="stRadioOption"]:has(input:checked),
+section[data-testid="stSidebar"] [role="radiogroup"] > label:has(input:checked) {
+  background: rgba(34,211,238,.10); border-color: rgba(34,211,238,.28); }
+section[data-testid="stSidebar"] label[data-testid="stRadioOption"]:has(input:checked) p { color:#e0f2fe; font-weight:600; }
 </style>
 """
 
