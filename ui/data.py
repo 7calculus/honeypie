@@ -144,6 +144,11 @@ def covered_by(r, name) -> frozenset:
     return covered_ids(res.nodes, r["index"]) if res is not None else frozenset()
 
 
+def covered_by_set(r, nodes) -> int:
+    """Number of paths covered by an arbitrary node set (backend coverage())."""
+    return coverage(nodes, r["index"])
+
+
 def verify_coverage(r) -> pd.DataFrame:
     """Cross-check: per-path coverage set size == the backend's reported count,
     and == src.coverage.coverage() recomputed on the same placement."""

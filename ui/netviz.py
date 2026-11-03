@@ -200,6 +200,11 @@ def network_figure(
         if not ns:
             continue
         on_path = [n in (highlight_path or []) for n in ns]
+        fig.add_trace(go.Scatter(   # soft neon halo behind the node
+            x=[pos[n][0] for n in ns], y=[pos[n][1] for n in ns], mode="markers",
+            marker=dict(size=(46 if role in ("Source", "Target") else 40),
+                        color=ROLE_COLORS[role], opacity=0.22),
+            hoverinfo="skip", showlegend=False))
         fig.add_trace(go.Scatter(
             x=[pos[n][0] for n in ns], y=[pos[n][1] for n in ns],
             mode="markers+text" if show_labels else "markers",
@@ -216,6 +221,10 @@ def network_figure(
     if honeypots:
         hp = [n for n in G.nodes if n in honeypots]
         ring = ALGO_COLORS.get(honeypot_algo, "#ffffff")
+        fig.add_trace(go.Scatter(
+            x=[pos[n][0] for n in hp], y=[pos[n][1] for n in hp], mode="markers",
+            marker=dict(size=58, color=HONEYPOT, opacity=0.25),
+            hoverinfo="skip", showlegend=False))
         fig.add_trace(go.Scatter(
             x=[pos[n][0] for n in hp], y=[pos[n][1] for n in hp],
             mode="markers+text" if show_labels else "markers",

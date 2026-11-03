@@ -37,7 +37,7 @@ def _sa_core(index, n_paths, k, init, T0, alpha, L, iters, seed, history=None):
     """Returns (best_nodes, best_cov, iterations_run, attempts, accepts, elapsed_s).
 
     If `history` is a list, one dict per iteration is appended:
-      {"iter", "T", "current", "candidate", "accepted", "best"}
+      {"iter", "T", "current", "candidate", "accepted", "best", "nodes"}
     (iter is 1-based; T is the temperature used for that iteration's decision;
     current/best are coverages *after* the iteration). Does not affect results.
     """
@@ -110,7 +110,8 @@ def _sa_core(index, n_paths, k, init, T0, alpha, L, iters, seed, history=None):
         if history is not None:
             history.append({"iter": it + 1, "T": T, "current": current_cov,
                             "candidate": cand_cov, "accepted": bool(accept),
-                            "best": best_cov})
+                            "best": best_cov,
+                            "nodes": tuple(sorted(current, key=str))})
 
         if (it + 1) % L == 0:
             T *= alpha

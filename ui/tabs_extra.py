@@ -6,7 +6,7 @@ import traceback
 import pandas as pd
 import streamlit as st
 
-from ui import charts, compat, data, netviz, theme
+from ui import charts, compat, data, netviz, simulation, theme
 from ui.theme import ALGO_COLORS, ALGO_LONG, callout, chips, header, tag
 
 
@@ -132,6 +132,7 @@ def runner(p, r):
         params = data.Params(bench, int(k), int(m), int(seed), float(T0), float(alpha), int(L), int(iters))
         t0 = time.perf_counter()
         try:
+            st.session_state["sim_autoplay"] = True
             with st.spinner(f"Running benchmark {bench} (k={params.k}, m={params.m}, seed={params.seed})…"):
                 res = data.set_active(params)
                 msg = (f"Benchmark {bench} finished in {time.perf_counter() - t0:.2f}s — "
@@ -152,6 +153,18 @@ def runner(p, r):
 
     p, r = data.active()
     if r is not None:
+        st.subheader("Live simulation — how the honeypot spots are chosen")
+        sa_, sb_, sc_ = st.columns([2.4, 1.6, 1.2])
+        algs = data.available_algos(r)
+        sim_algo = sa_.radio("Algorithm to animate", algs, index=algs.index("Greedy"),
+                             horizontal=True, key="sim_algo")
+        sim_layout = sb_.selectbox("Layout", netviz.LAYOUTS, key="sim_layout")
+        sim_speed = sc_.slider("Frame time (ms)", 150, 1500, 450, 50, key="sim_speed")
+        n_frames = simulation.render(r, sim_algo, sim_layout, sim_speed,
+                                     autoplay=st.session_state.pop("sim_autoplay", True))
+        st.caption(f"{n_frames} frames: first the placement is built step by step, then simulated attackers "
+                   "walk candidate paths and are intercepted (✕) when they step on a honeypot. "
+                   "Use ▶ / ❚❚ or drag the slider; replay does not re-run the experiment.")
         st.subheader("Latest run")
         compat.table(data.comparison_df(r)[["Algorithm", "Honeypots", "Coverage", "Coverage %",
                                             "Runtime (ms)", "Iterations"]],
