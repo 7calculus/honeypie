@@ -268,6 +268,12 @@ def render(r, algo, layout, speed=450, autoplay=True):
     html = fig.to_html(full_html=True, include_plotlyjs=True, auto_play=autoplay,
                        animation_opts=anim, default_height="580px", default_width="100%",
                        config={"displaylogo": False, "displayModeBar": False})
-    html = html.replace("<head>", "<head><style>html,body{background:transparent;margin:0;overflow:hidden}</style>", 1)
+    css = """
+    html,body{background:transparent;margin:0;overflow:hidden}
+    .updatemenu-item-rect{stroke:#22d3ee !important;stroke-width:1.5px}
+    .updatemenu-item-rect[style*="244, 250, 255"]{fill:#f87171 !important}
+    .updatemenu-item-text{fill:#ffffff !important}
+    """
+    html = html.replace("<head>", f"<head><style>{css}</style>", 1)
     components.html(html, height=600)
     return n
