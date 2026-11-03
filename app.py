@@ -65,10 +65,8 @@ with st.sidebar:
             f'<span class="k">best</span> <b>{best}</b> '
             f'({result[{"Greedy": "greedy", "Betweenness": "betweenness", "SA": "sa", "Exhaustive": "exhaustive"}[best]].covered}'
             f'/{result["n_paths"]})</div>', unsafe_allow_html=True)
-        st.caption("Change it in **Experiment Runner**.")
     else:
         st.warning("No experiment loaded.")
-    st.caption("Backend: `src.experiments.run_experiment`")
 
 if page in NEEDS_RESULT and result is None:
     st.error(f"No experiment is loaded{': ' + boot_error if boot_error else ''}. "
