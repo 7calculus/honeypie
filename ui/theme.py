@@ -110,28 +110,22 @@ button[kind="primary"], button[data-testid="stBaseButton-primary"], button[data-
 .stTabs [aria-selected="true"] { text-shadow: 0 0 10px var(--accent); }
 div[data-testid="stExpander"] { border:1px solid rgba(167,139,250,.35); border-radius:12px;
   box-shadow: 0 0 16px -8px #a78bfa; }
-/* ---------- sidebar nav: whole-row block buttons instead of radio dots ---------- */
-section[data-testid="stSidebar"] [data-testid="stElementContainer"]:has([data-testid="stRadio"]),
-section[data-testid="stSidebar"] [data-testid="stRadio"] { width: 100% !important; }
-section[data-testid="stSidebar"] [role="radiogroup"] { gap: .1rem; width: 100%; }
-section[data-testid="stSidebar"] [role="radiogroup"] > div { width: 100%; }
-section[data-testid="stSidebar"] label[data-testid="stRadioOption"],
-section[data-testid="stSidebar"] [role="radiogroup"] > label {
-  display: flex !important; width: 100% !important; box-sizing: border-box; padding: .38rem .8rem; margin: 0; border-radius: 8px; cursor: pointer;
-  border: 1px solid transparent; background: transparent; transition: background .15s, border-color .15s; }
-/* hide the round radio indicator (new + older Streamlit markup) */
-section[data-testid="stSidebar"] label[data-testid="stRadioOption"] > div > div:first-child:not(:has(p)):not(:has([data-testid="stMarkdownContainer"])),
-section[data-testid="stSidebar"] [role="radiogroup"] > label > div:first-child:not(:has(p)):not(:has([data-testid="stMarkdownContainer"])) { display: none !important; }
-/* safety net: the label text must never be hidden, whatever Streamlit version is bundled */
-section[data-testid="stSidebar"] [role="radiogroup"] label [data-testid="stMarkdownContainer"],
-section[data-testid="stSidebar"] [role="radiogroup"] label p { display:block !important; visibility:visible !important; opacity:1 !important; }
-section[data-testid="stSidebar"] label[data-testid="stRadioOption"] p { color:#a9bbd6; font-size:.92rem; }
-section[data-testid="stSidebar"] label[data-testid="stRadioOption"]:hover,
-section[data-testid="stSidebar"] [role="radiogroup"] > label:hover { background: rgba(148,163,184,.10); }
-section[data-testid="stSidebar"] label[data-testid="stRadioOption"]:has(input:checked),
-section[data-testid="stSidebar"] [role="radiogroup"] > label:has(input:checked) {
-  background: rgba(34,211,238,.10); border-color: rgba(34,211,238,.28); }
-section[data-testid="stSidebar"] label[data-testid="stRadioOption"]:has(input:checked) p { color:#e0f2fe; font-weight:600; }
+/* ---------- sidebar nav: plain buttons styled as subtle full-width blocks (works on every Streamlit version) ---------- */
+section[data-testid="stSidebar"] .stButton > button {
+  width: 100%; justify-content: flex-start; text-align: left; box-shadow: none; transform: none;
+  padding: .38rem .8rem; border-radius: 8px; min-height: 0;
+  background: transparent !important; border: 1px solid transparent !important; color: #a9bbd6 !important; }
+section[data-testid="stSidebar"] .stButton > button > div,
+section[data-testid="stSidebar"] .stButton > button [data-testid="stMarkdownContainer"] {
+  width: 100%; justify-content: flex-start !important; text-align: left !important; }
+section[data-testid="stSidebar"] .stButton > button p { color: inherit !important; font-size: .92rem; text-align: left; }
+section[data-testid="stSidebar"] .stButton > button:hover {
+  background: rgba(148,163,184,.10) !important; box-shadow: none; transform: none; }
+section[data-testid="stSidebar"] .stButton > button[kind="primary"],
+section[data-testid="stSidebar"] .stButton > button[data-testid="stBaseButton-primary"] {
+  background: rgba(34,211,238,.10) !important; border: 1px solid rgba(34,211,238,.28) !important;
+  color: #e0f2fe !important; font-weight: 600; box-shadow: none !important; }
+section[data-testid="stSidebar"] [data-testid="stVerticalBlock"] { gap: .15rem; }
 </style>
 """
 

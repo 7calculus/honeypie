@@ -53,7 +53,13 @@ params, result = data.active()
 with st.sidebar:
     st.markdown('<div class="brand">HONEYPOT<span>·LAB</span></div>'
                 '<div class="brand-sub">Attack-path coverage optimiser</div>', unsafe_allow_html=True)
-    page = st.radio("Navigate", list(PAGES), key="nav", label_visibility="collapsed")
+    st.session_state.setdefault("nav", next(iter(PAGES)))
+    for _name in PAGES:
+        if st.button(_name, key=f"navbtn_{_name}", use_container_width=True,
+                     type="primary" if st.session_state["nav"] == _name else "secondary"):
+            st.session_state["nav"] = _name
+            st.rerun()
+    page = st.session_state["nav"]
     st.divider()
     if params is not None:
         best, _ = data.best_algorithm(result)
@@ -65,8 +71,10 @@ with st.sidebar:
             f'<span class="k">best</span> <b>{best}</b> '
             f'({result[{"Greedy": "greedy", "Betweenness": "betweenness", "SA": "sa", "Exhaustive": "exhaustive"}[best]].covered}'
             f'/{result["n_paths"]})</div>', unsafe_allow_html=True)
+        st.caption("Change it in **Experiment Runner**.")
     else:
         st.warning("No experiment loaded.")
+    st.caption("Backend: `src.experiments.run_experiment`")
 
 if page in NEEDS_RESULT and result is None:
     st.error(f"No experiment is loaded{': ' + boot_error if boot_error else ''}. "

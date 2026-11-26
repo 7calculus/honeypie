@@ -2,7 +2,7 @@
 from PyInstaller.utils.hooks import collect_all
 from PyInstaller.utils.hooks import copy_metadata
 
-datas = [('C:\\Users\\7calculus\\Documents\\5TH SEM RUAS\\graph\\new honeypie\\honeypie\\app.py', '.')]
+datas = [('C:\\Users\\7calculus\\Documents\\5TH SEM RUAS\\graph\\new honeypie\\honeypie\\app.py', '.'), ('ui', 'ui'), ('src', 'src'), ('benchmarks', 'benchmarks'), ('data', 'data'), ('results', 'results'), ('.streamlit', '.streamlit')]
 binaries = []
 hiddenimports = ['__future__.annotations', 'streamlit', 'ui.data', 'ui.tabs_algos.annealing', 'ui.tabs_algos.comparison', 'ui.tabs_algos.exhaustive', 'ui.tabs_algos.greedy', 'ui.tabs_core.centrality', 'ui.tabs_core.overview', 'ui.tabs_core.paths', 'ui.tabs_core.topology', 'ui.tabs_extra.precinct6', 'ui.tabs_extra.results', 'ui.tabs_extra.runner', 'ui.theme']
 datas += copy_metadata('streamlit')
@@ -11,7 +11,7 @@ datas += tmp_ret[0]; binaries += tmp_ret[1]; hiddenimports += tmp_ret[2]
 
 
 a = Analysis(
-    ['C:\\Users\\7CALCU~1\\AppData\\Local\\Temp\\tmp6o7mxfl4.py'],
+    ['C:\\Users\\7CALCU~1\\AppData\\Local\\Temp\\tmp_kwvqnwm.py'],
     pathex=['.'],
     binaries=binaries,
     datas=datas,
